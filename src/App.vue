@@ -8,6 +8,7 @@
 <script>
 import customerVue from './components/CustomerComs.vue'
 export default {
+  name:'App',
   components:{
     customerVue
   }

@@ -12,9 +12,7 @@ const store = new Vuex.Store({
       state.customers.push(newCustomer)
     },
     deleteCustomer(state, idCustomer) {
-      
-      let newstate = state.customers.filter(state.customers.id != idCustomer)
-      return newstate
+      state.customers = state.customers.filter(customer => customer.id !== idCustomer)
     },
   },
   actions: {
