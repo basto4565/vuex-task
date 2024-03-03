@@ -66,6 +66,17 @@
           </ValidationProvider>
           </div>
 
+          <div>
+            <label class="block mr-3 my-1">Date</label>
+            <input
+            id="date"
+            class="shadow appearance-none border py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            v-model="form.date"
+            type="date"
+            @change="checkDate" 
+            />
+          </div>
+
           <button
             type="submit"
             class="my-3 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
@@ -74,13 +85,14 @@
           </button>
         </form>
       </ValidationObserver>
+      
     </div>
 
     <h2>All Customers</h2>
     <ul>
       <li v-for="customer in customers" :key="customer.id">
         ID: {{ customer.id }}, Name: {{ customer.name }}, Total Price:
-        {{ customer.totalprice }}
+        {{ customer.totalprice }}, Date: {{ customer.date }}
       </li>
     </ul>
     <div>
@@ -97,23 +109,6 @@
         Delete
       </button>
     </div>
-    <hr class="my-4" />
-    <h2>: ติ๊กเพื่อลบข้อมูล :</h2>
-    <div>
-      <ul>
-        <li v-for="customer in allCustomers" :key="customer.id">
-          <input type="checkbox" v-model="customer.selected" />
-          ID: {{ customer.id }}, Name: {{ customer.name }}, Total Price:
-          {{ customer.totalPrice }}
-        </li>
-      </ul>
-    </div>
-    <button
-      class="my-2 text-gray-900 hover:text-white border border-gray-800 hover:border-red-700 hover:bg-red-700 focus:ring-2 focus:outline-none focus:border-red-700 focus:ring-red-400 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
-      @click="onDelete"
-    >
-      Confirm
-    </button>
   </div>
 </template>
 
@@ -133,10 +128,12 @@ export default {
         id: this.form.id,
         name: this.form.name,
         totalprice: this.form.totalprice,
+        date: this.form.date
       })
       this.form.id = ""
       this.form.name = ""
       this.form.totalprice = ""
+      this.form.date = ""
     },
     onDelete() {
       this.$store.dispatch("deleteCustomerAction", this.form.deleteid)
